@@ -60,9 +60,9 @@ class OracleAdapter extends PdoAdapter implements AdapterInterface
             $this->resetAutocommit();
 
             // default oracle port
-            $port = $options['port'] ? $options['port'] : 1521;
+            $port = isset($options['port']) ? $options['port'] : 1521;
 
-            $db = oci_new_connect($options['user'], $options['pass'], $options['host'].':'.$port.'/'.$options['sid'], $options['charset']);
+            $db = @oci_new_connect($options['user'], $options['pass'], $options['host'].':'.$port.'/'.$options['sid'], $options['charset']);
 
             if (!$db) {
                 $err = oci_error();
@@ -119,7 +119,7 @@ class OracleAdapter extends PdoAdapter implements AdapterInterface
     public function query($sql)
     {
         $res = oci_parse($this->getConnection(), $sql);
-        oci_execute($res, $this->autocommit ? OCI_COMMIT_ON_SUCCESS : OCI_DEFAULT);
+        @oci_execute($res, $this->autocommit ? OCI_COMMIT_ON_SUCCESS : OCI_DEFAULT);
 
         $err = oci_error($res);
         if ($err) {
