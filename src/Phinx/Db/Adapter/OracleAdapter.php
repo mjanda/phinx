@@ -71,7 +71,7 @@ class OracleAdapter extends PdoAdapter implements AdapterInterface
 
             $this->setOciConnection($db);
 
-            $this->query("ALTER session SET nls_date_format = 'yyyy-mm-dd hh24:mi:ss' NLS_SORT=BINARY_CI");
+            $this->query("ALTER session SET NLS_TIMESTAMP_TZ_FORMAT = 'yyyy-mm-dd hh24:mi:ss' NLS_SORT=BINARY_CI");
         }
     }
 
