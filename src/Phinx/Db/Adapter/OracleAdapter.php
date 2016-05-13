@@ -206,8 +206,8 @@ class OracleAdapter extends PdoAdapter implements AdapterInterface
 
         $exists = $this->fetchRow(sprintf(
             "SELECT table_name
-            FROM all_tables
-            WHERE tablespace_name = '%s' AND table_name = '%s'",
+             FROM all_tables
+             WHERE owner =  '%s' AND table_name = '%s'",
             $options['name'], $tableName
         ));
 
